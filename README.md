@@ -1,2 +1,2 @@
-# lsdm-frontend
-Frontend repository 
+# Frontend
+Frontend repository
