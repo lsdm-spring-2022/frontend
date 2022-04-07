@@ -5,9 +5,17 @@ import { getData } from '../apis/data';
 const Data = () => {
   const [currentData, setCurrentData] = useState('');
   const [region, setRegion] = useState('');
-  const [startYear, setStartYear] = useState('');
-  const [endYear, setEndYear] = useState('');
-
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [reddit, setReddit] = useState(false);
+  const [twitter, setTwitter] = useState(false);
+  const dataRequest = {
+    reddit: false,
+    twitter: false,
+    region: '',
+    startDate: null,
+    endDate: null,
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,15 +31,18 @@ const Data = () => {
 
   function doTest(e) {
     e.preventDefault();
-    if (startYear > endYear)
+    dataRequest.reddit = reddit;
+    dataRequest.twitter = twitter;
+    dataRequest.region = region;
+    dataRequest.startDate = startDate;
+    dataRequest.endDate = endDate;
+    if (startDate > endDate)
       console.log(
-        "You can't finish before you start! Pick a valid range of years."
+        "You can't finish before you start! Pick a valid range of dates."
       );
-    else {
-      console.log(region);
-      console.log(startYear);
-      console.log(endYear);
-    }
+    else if (!reddit && !twitter)
+      console.log('You need to pick at least one site!');
+    else console.log(dataRequest);
   }
 
   return (
@@ -44,27 +55,43 @@ const Data = () => {
         <label htmlFor="region">Region </label>
         <input
           id="region"
-          type="region"
+          type="text"
           value={region}
           onChange={(e) => setRegion(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="startYear">Starting Year </label>
+        <label htmlFor="startDate">Starting Date </label>
         <input
-          id="startYear"
-          type="number"
-          value={startYear}
-          onChange={(e) => setStartYear(e.target.value)}
+          id="startDate"
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="endYear">Ending Year </label>
+        <label htmlFor="endDate">Ending Date </label>
         <input
-          id="endYear"
-          type="number"
-          value={endYear}
-          onChange={(e) => setEndYear(e.target.value)}
+          id="endDate"
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="reddit">Reddit </label>
+        <input
+          id="reddit"
+          type="checkbox"
+          checked={reddit}
+          onChange={() => setReddit(!reddit)}
+        />
+        <label htmlFor="twitter">Twitter </label>
+        <input
+          id="twitter"
+          type="checkbox"
+          checked={twitter}
+          onChange={() => setTwitter(!twitter)}
         />
       </div>
       <button type="submit">Click me!</button>
