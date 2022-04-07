@@ -4,6 +4,10 @@ import { getData } from '../apis/data';
 
 const Data = () => {
   const [currentData, setCurrentData] = useState('');
+  //  Aaron's Form code copied from Colin
+  const [region, setRegion] = useState('');
+  const [startYear, setStartYear] = useState('');
+  const [endYear, setEndYear] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,11 +22,52 @@ const Data = () => {
     fetchData();
   }, []);
 
+  //  Aaron's form code
+  function doTest(e) {
+    e.preventDefault();
+    if (startYear > endYear) console.log('Pick a valid range of years.');
+    else {
+      console.log(region);
+      console.log(startYear);
+      console.log(endYear);
+    }
+  }
+
   return (
-    <div>
-      <h2>Data from API</h2>
-      {currentData}
-    </div>
+    <form onSubmit={doTest}>
+      <div>
+        <h2>Data from API</h2>
+        {currentData}
+      </div>
+      <div>
+        <label htmlFor="region">Region</label>
+        <input
+          id="region"
+          type="region"
+          value={region}
+          onChange={(e) => setRegion(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="startYear">Starting Year</label>
+        <input
+          id="startYear"
+          type="number"
+          value={startYear}
+          onChange={(e) => setStartYear(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="endYear">Ending Year</label>
+        <input
+          id="endYear"
+          type="number"
+          value={endYear}
+          onChange={(e) => setEndYear(e.target.value)}
+        />
+      </div>
+      <button type="submit">Click Me</button>
+    </form>
   );
 };
 
