@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { start } from 'repl';
 
 import { getData } from '../apis/data';
 
 const Data = () => {
   const [currentData, setCurrentData] = useState('');
-  const [region, setRegion] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [region, setRegion] = useState('US');
+  const [startDate, setStartDate] = useState('2012-01-01');
+  const [endDate, setEndDate] = useState('2020-12-31');
   const [reddit, setReddit] = useState(false);
   const [twitter, setTwitter] = useState(false);
-  const dataRequest = {
-    reddit: false,
-    twitter: false,
-    region: '',
-    startDate: null,
-    endDate: null,
-  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,18 +25,13 @@ const Data = () => {
 
   function doTest(e) {
     e.preventDefault();
-    dataRequest.reddit = reddit;
-    dataRequest.twitter = twitter;
-    dataRequest.region = region;
-    dataRequest.startDate = startDate;
-    dataRequest.endDate = endDate;
-    if (startDate > endDate)
-      console.log(
-        "You can't finish before you start! Pick a valid range of dates."
-      );
+    if (region === '') console.log('You must select a region.');
+    else if ((startDate === '' && endDate === '') || startDate > endDate)
+      console.log('Invalid date range.');
     else if (!reddit && !twitter)
       console.log('You need to pick at least one site!');
-    else console.log(dataRequest);
+    else
+      getSocialMediaData(region, startDate, endDate, reddit, twitter);
   }
 
   return (
@@ -61,7 +50,7 @@ const Data = () => {
         />
       </div>
       <div>
-        <label htmlFor="startDate">Starting Date </label>
+        <label htmlFor="startDate">Starting Date</label>
         <input
           id="startDate"
           type="date"
@@ -78,7 +67,7 @@ const Data = () => {
           onChange={(e) => setEndDate(e.target.value)}
         />
       </div>
-      <div>
+      <div className="ui checked checkbox">
         <label htmlFor="reddit">Reddit </label>
         <input
           id="reddit"
@@ -86,6 +75,8 @@ const Data = () => {
           checked={reddit}
           onChange={() => setReddit(!reddit)}
         />
+      </div>
+      <div className="ui checked checkbox">
         <label htmlFor="twitter">Twitter </label>
         <input
           id="twitter"
