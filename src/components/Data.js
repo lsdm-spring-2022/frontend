@@ -11,7 +11,6 @@ const Data = () => {
 
   async function submitRequest(e) {
     e.preventDefault();
-
     if (region === '') console.log('You must select a region.');
     else if (startDate > endDate) console.log('Invalid date range.');
     else if (!reddit && !twitter)
@@ -22,7 +21,7 @@ const Data = () => {
   return (
     <form onSubmit={submitRequest}>
       <div>
-        <h2>Data from API</h2>
+        <h2>Data from IPA</h2>
       </div>
       <div>
         <label htmlFor="region">Region </label>
