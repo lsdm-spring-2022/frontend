@@ -1,44 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { start } from 'repl';
+import React, { useState } from 'react';
 
-import { getData } from '../apis/data';
+import { getSocialMediaData } from '../apis/data';
 
 const Data = () => {
-  const [currentData, setCurrentData] = useState('');
   const [region, setRegion] = useState('US');
   const [startDate, setStartDate] = useState('2012-01-01');
-  const [endDate, setEndDate] = useState('2020-12-31');
+  const [endDate, setEndDate] = useState('2021-12-31');
   const [reddit, setReddit] = useState(false);
   const [twitter, setTwitter] = useState(false);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getData();
-        setCurrentData(`API says: ${response.message}`);
-      } catch (err) {
-        setCurrentData(null);
-      }
-    };
 
-    fetchData();
-  }, []);
-
-  function doTest(e) {
+  async function submitRequest(e) {
     e.preventDefault();
+
     if (region === '') console.log('You must select a region.');
-    else if ((startDate === '' && endDate === '') || startDate > endDate)
-      console.log('Invalid date range.');
+    else if (startDate > endDate) console.log('Invalid date range.');
     else if (!reddit && !twitter)
       console.log('You need to pick at least one site!');
-    else
-      getSocialMediaData(region, startDate, endDate, reddit, twitter);
+    else await getSocialMediaData(region, startDate, endDate, reddit, twitter);
   }
 
   return (
-    <form onSubmit={doTest}>
+    <form onSubmit={submitRequest}>
       <div>
         <h2>Data from API</h2>
-        {currentData}
       </div>
       <div>
         <label htmlFor="region">Region </label>

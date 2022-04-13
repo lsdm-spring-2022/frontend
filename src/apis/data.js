@@ -1,11 +1,27 @@
 import axios from 'axios';
 
-export const getData = async () => {
-  const config = {
-    method: 'get',
-    url: 'http://localhost:3000/api/data',
+const BASE_URL = 'http://localhost:3000/';
+
+export const getSocialMediaData = async (
+  region,
+  startDate,
+  endDate,
+  reddit,
+  twitter
+) => {
+  const params = {
+    region,
+    startDate,
+    endDate,
+    reddit,
+    twitter,
   };
-  const response = await axios(config);
-  console.log(`Response: ${JSON.stringify(response.data)}`);
-  return response.data;
+  try {
+    const response = await axios.get(`${BASE_URL}api/data`, { params });
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return undefined;
+  }
 };
