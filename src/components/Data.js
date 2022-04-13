@@ -21,7 +21,7 @@ const Data = () => {
   return (
     <form onSubmit={submitRequest}>
       <div>
-        <h2>Data from IPA</h2>
+        <h2>Data from API</h2>
       </div>
       <div>
         <label htmlFor="region">Region </label>
@@ -50,7 +50,7 @@ const Data = () => {
           onChange={(e) => setEndDate(e.target.value)}
         />
       </div>
-      <div className="ui checked checkbox">
+      <div>
         <label htmlFor="reddit">Reddit </label>
         <input
           id="reddit"
@@ -59,7 +59,7 @@ const Data = () => {
           onChange={() => setReddit(!reddit)}
         />
       </div>
-      <div className="ui checked checkbox">
+      <div>
         <label htmlFor="twitter">Twitter </label>
         <input
           id="twitter"
