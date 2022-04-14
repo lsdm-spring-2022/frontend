@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Checkbox } from 'semantic-ui-react';
 import { getSocialMediaData } from '../apis/data';
 
 const Data = () => {
@@ -50,7 +50,7 @@ const Data = () => {
           onChange={(e) => setEndDate(e.target.value)}
         />
       </div>
-      <div>
+      <Checkbox>
         <label htmlFor="reddit">Reddit </label>
         <input
           id="reddit"
@@ -58,7 +58,7 @@ const Data = () => {
           checked={reddit}
           onChange={() => setReddit(!reddit)}
         />
-      </div>
+      </Checkbox>
       <div>
         <label htmlFor="twitter">Twitter </label>
         <input
