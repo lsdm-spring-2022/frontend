@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { getSampleData } from '../sample-data/get-sample-data';
 
 const Data = () => {
-  const [region, setRegion] = useState('US');
+  const [regionState, setRegionState] = useState('US');
   const [startDate, setStartDate] = useState('2012-01-01');
   const [endDate, setEndDate] = useState('2021-12-31');
   const [reddit, setReddit] = useState(false);
@@ -22,7 +22,7 @@ const Data = () => {
 
   async function submitRequest(e) {
     e.preventDefault();
-    if (region === '') console.log('You must select a region.');
+    if (regionState === '') console.log('You must select a region.');
     else if (startDate > endDate) console.log('Invalid date range.');
     else if (!reddit && !twitter)
       console.log('You need to pick at least one site!');
@@ -41,8 +41,8 @@ const Data = () => {
           <input
             id="region"
             type="text"
-            value={region}
-            onChange={(e) => setRegion(e.target.value)}
+            value={regionState}
+            onChange={(e) => setRegionState(e.target.value)}
           />
         </div>
         <div>
@@ -82,6 +82,9 @@ const Data = () => {
           />
         </div>
         <button type="submit">Click me!</button>
+        <button type="button" onClick={() => setRedditData([])}>
+          Clear Data
+        </button>
       </form>
     </>
   );
@@ -106,7 +109,7 @@ const Data = () => {
               {redditData.map(
                 ({
                   datePosted,
-                  dataRegion,
+                  region,
                   subreddit,
                   postTitle,
                   upvotes,
@@ -114,7 +117,7 @@ const Data = () => {
                   comments,
                 }) => (
                   <tr key={datePosted}>
-                    <td data-label="region">{dataRegion}</td>
+                    <td data-label="region">{region}</td>
                     <td data-label="subreddit">{subreddit}</td>
                     <td data-label="postTitle">{postTitle}</td>
                     <td data-label="upvotes">{upvotes}</td>
