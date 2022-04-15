@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { getSocialMediaData } from '../apis/data';
 import { getSampleData } from '../sample-data/get-sample-data';
 
 const Data = () => {
