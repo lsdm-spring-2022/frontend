@@ -23,26 +23,26 @@ const Data = () => {
       <div>
         <h2>Data from API</h2>
       </div>
+      <select
+        className="ui search dropdown"
+        onChange={(e) => setRegion(e.target.value)}
+      >
+        <option value="" label="Select Country" />
+        <option value="US" label="United States" />
+        <option value="UK" label="United Kingdom" />
+        <option value="France" label="France" />
+      </select>
       <div>
-        <label htmlFor="region">Region </label>
+        Starting Date&nbsp;&nbsp;
         <input
-          id="region"
-          type="text"
-          value={region}
-          onChange={(e) => setRegion(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="startDate">Starting Date</label>
-        <input
-          id="startDate"
           type="date"
+          id="startDate"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="endDate">Ending Date </label>
+        Ending Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input
           id="endDate"
           type="date"
@@ -50,25 +50,26 @@ const Data = () => {
           onChange={(e) => setEndDate(e.target.value)}
         />
       </div>
-      <Checkbox>
-        <label htmlFor="reddit">Reddit </label>
-        <input
+      <div>
+        <Checkbox
+          label="Reddit"
           id="reddit"
-          type="checkbox"
           checked={reddit}
           onChange={() => setReddit(!reddit)}
         />
-      </Checkbox>
+      </div>
       <div>
-        <label htmlFor="twitter">Twitter </label>
-        <input
+        <Checkbox
+          label="Twitter"
           id="twitter"
-          type="checkbox"
           checked={twitter}
           onChange={() => setTwitter(!twitter)}
         />
       </div>
-      <button type="submit">Click me!</button>
+      <button className="ui right labeled icon button" type="submit">
+        <i className="search icon" />
+        Click me!
+      </button>
     </form>
   );
 };
