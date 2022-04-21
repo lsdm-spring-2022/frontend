@@ -1,6 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'semantic-ui-css/semantic.min.css';
-import App from './components/App';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+import Nav from './components/Nav';
+import Home from './routes/Home';
+import About from './routes/About';
+import Data from './routes/Data';
+import 'semantic-ui-css/semantic.min.css';
+
+ReactDOM.render(
+  <BrowserRouter>
+    <div className="ui container">
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="data" element={<Data />} />
+      </Routes>
+    </div>
+  </BrowserRouter>,
+  document.querySelector('#root')
+);

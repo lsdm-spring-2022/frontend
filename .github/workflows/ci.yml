@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -26,6 +26,3 @@ jobs:
 
       - name: Run the tests
         run: npm test
-
-      - name: Build
-        run: npm run build
