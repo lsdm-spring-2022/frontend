@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { getSampleData } from '../sample-data/get-sample-data';
+import { getSampleData } from '../apis/data';
 
 const Data = () => {
   const [regionState, setRegionState] = useState('US');
@@ -27,7 +27,7 @@ const Data = () => {
     else if (!reddit && !twitter)
       console.log('You need to pick at least one site!');
     else {
-      // await getSocialMediaData(region, startDate, endDate, reddit, twitter)
+      //await getSocialMediaData(regionState, startDate, endDate, reddit, twitter);
       getFakeRedditData();
     }
   }
