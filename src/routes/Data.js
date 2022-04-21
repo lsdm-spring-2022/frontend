@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { getSampleData } from '../apis/data';
+import { getSampleData } from '../sample-data/get-sample-data';
 
 const Data = () => {
   const [regionState, setRegionState] = useState('US');
