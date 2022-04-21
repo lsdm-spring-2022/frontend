@@ -6,6 +6,7 @@ import Nav from './components/Nav';
 import Home from './routes/Home';
 import About from './routes/About';
 import Data from './routes/Data';
+import 'semantic-ui-css/semantic.min.css';
 
 ReactDOM.render(
   <BrowserRouter>

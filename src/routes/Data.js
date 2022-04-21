@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Checkbox } from 'semantic-ui-react';
 
 import { getSampleData } from '../sample-data/get-sample-data';
 
@@ -37,13 +38,15 @@ const Data = () => {
       <h2>Submit Data Request</h2>
       <form onSubmit={submitRequest}>
         <div>
-          <label htmlFor="region">Region </label>
-          <input
-            id="region"
-            type="text"
-            value={regionState}
+          <select
+            className="ui search dropdown"
             onChange={(e) => setRegionState(e.target.value)}
-          />
+          >
+            <option value="" label="Select Country" />
+            <option value="US" label="United States" />
+            <option value="UK" label="United Kingdom" />
+            <option value="France" label="France" />
+          </select>
         </div>
         <div>
           <label htmlFor="startDate">Starting Date</label>
@@ -64,24 +67,25 @@ const Data = () => {
           />
         </div>
         <div>
-          <label htmlFor="reddit">Reddit </label>
-          <input
+          <Checkbox
+            label="Reddit"
             id="reddit"
-            type="checkbox"
             checked={reddit}
             onChange={() => setReddit(!reddit)}
           />
         </div>
         <div>
-          <label htmlFor="twitter">Twitter </label>
-          <input
+          <Checkbox
+            label="Twitter"
             id="twitter"
-            type="checkbox"
             checked={twitter}
             onChange={() => setTwitter(!twitter)}
           />
         </div>
-        <button type="submit">Click me!</button>
+        <button className="ui right labeled icon button" type="submit">
+          <i className="search icon" />
+        Click me!
+        </button>
         <button type="button" onClick={() => setRedditData([])}>
           Clear Data
         </button>
