@@ -1,17 +1,23 @@
-import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Menu, Segment } from 'semantic-ui-react';
 
-const Nav = () => (
-  <div>
-    <Link to="/">
-      <h1>Historical Social Media</h1>
-    </Link>
-    <nav style={{ borderBottom: 'solid 1px', paddingBottom: '1rem' }}>
-      <Link to="/">Home</Link> | <Link to="/about">About</Link> |{' '}
-      <Link to="/data">Data</Link>
-    </nav>
-    <Outlet />
-  </div>
-);
+const Nav = () => {
+  const [activeItem, setActiveItem] = useState('Historical Social Media');
+
+  const handleItemClick = (e, data) => {
+    setActiveItem(data.content);
+  };
+
+  return (
+    <Segment>
+      <Menu pointing secondary>
+        <Menu.Item content='Historical Social Media' as={Link} active={activeItem === 'Historical Social Media'} onClick={handleItemClick} to="/" />
+        <Menu.Item content='About' as={Link} active={activeItem === 'About'} onClick={handleItemClick} to="/about" />
+        <Menu.Item content='Data' as={Link} active={activeItem === 'Data'} onClick={handleItemClick} to="/data" />
+      </Menu>
+    </Segment>
+  );
+};
 
 export default Nav;
