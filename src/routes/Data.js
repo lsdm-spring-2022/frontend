@@ -1,15 +1,28 @@
 import React, { useState } from 'react';
-import { Checkbox } from 'semantic-ui-react';
+import { Form, Table } from 'semantic-ui-react';
 
 import { getSampleData } from '../sample-data/get-sample-data';
 
 const Data = () => {
-  const [regionState, setRegionState] = useState('US');
-  const [startDate, setStartDate] = useState('2012-01-01');
-  const [endDate, setEndDate] = useState('2021-12-31');
+  const [regionState, setRegionState] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [reddit, setReddit] = useState(false);
   const [twitter, setTwitter] = useState(false);
   const [redditData, setRedditData] = useState([]);
+
+  const handleRegionChange = (e, data) => {
+    setRegionState(data.value);
+  };
+
+  const handleResetForm = () => {
+    setRegionState('');
+    setStartDate('');
+    setEndDate('');
+    setReddit(false);
+    setTwitter(false);
+    setRedditData([]);
+  };
 
   const getFakeRedditData = () => {
     try {
@@ -33,63 +46,47 @@ const Data = () => {
     }
   }
 
+  const fakeRegions = [
+    {
+      key: 'us',
+      value: 'unitedstates',
+      text: 'United States'
+    },
+    {
+      key: 'uk',
+      value: 'unitedkingdom',
+      text: 'United Kingdom'
+    },
+    {
+      key: 'fr',
+      value: 'france',
+      text: 'France'
+    }
+  ];
+
   const renderForm = () => (
     <>
       <h2>Submit Data Request</h2>
-      <form onSubmit={submitRequest}>
-        <div>
-          <select
-            className="ui search dropdown"
-            onChange={(e) => setRegionState(e.target.value)}
-          >
-            <option value="" label="Select Country" />
-            <option value="US" label="United States" />
-            <option value="UK" label="United Kingdom" />
-            <option value="France" label="France" />
-          </select>
-        </div>
-        <div>
-          <label htmlFor="startDate">Starting Date</label>
-          <input
-            id="startDate"
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="endDate">Ending Date </label>
-          <input
-            id="endDate"
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
-        </div>
-        <div>
-          <Checkbox
-            label="Reddit"
-            id="reddit"
-            checked={reddit}
-            onChange={() => setReddit(!reddit)}
-          />
-        </div>
-        <div>
-          <Checkbox
-            label="Twitter"
-            id="twitter"
-            checked={twitter}
-            onChange={() => setTwitter(!twitter)}
-          />
-        </div>
-        <button className="ui right labeled icon button" type="submit">
-          <i className="search icon" />
-        Click me!
-        </button>
-        <button type="button" onClick={() => setRedditData([])}>
-          Clear Data
-        </button>
-      </form>
+      <Form onSubmit={submitRequest}>
+        <Form.Group>
+          <Form.Select label="Select Country" placeholder="Select a country" options={fakeRegions} onChange={handleRegionChange} value={regionState} />
+        </Form.Group>
+        <Form.Group>
+          <Form.Input label="Starting Date" placeholder="Starting Date" value={startDate} type="date" onChange={(e) => setStartDate(e.target.value)} />
+          <Form.Input label="Ending Date" placeholder="Ending Date" value={endDate} type="date" onChange={(e) => setEndDate(e.target.value)} />
+        </Form.Group>
+        <Form.Group>
+          <Form.Field inline>
+            <label>Data Source</label>
+            <Form.Checkbox label="Reddit" checked={reddit} onChange={() => setReddit(!reddit)} />
+            <Form.Checkbox label="Twitter" checked={twitter} onChange={() => setTwitter(!twitter)} />
+          </Form.Field>
+        </Form.Group>
+        <Form.Group>
+          <Form.Button content="Submit" />
+          <Form.Button content="New Search" type="button" onClick={handleResetForm} />
+        </Form.Group>
+      </Form>
     </>
   );
 
@@ -98,18 +95,19 @@ const Data = () => {
       return (
         <>
           <h2>Reddit Data</h2>
-          <table className="ui celled table">
-            <thead>
-              <tr>
-                <th>Region</th>
-                <th>Subreddit</th>
-                <th>Post Title</th>
-                <th>Upvotes</th>
-                <th>Date Stored</th>
-                <th>Comments</th>
-              </tr>
-            </thead>
-            <tbody>
+          <Table celled>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Region</Table.HeaderCell>
+                <Table.HeaderCell>Subreddit</Table.HeaderCell>
+                <Table.HeaderCell>Post Title</Table.HeaderCell>
+                <Table.HeaderCell>Upvotes</Table.HeaderCell>
+                <Table.HeaderCell>Date Stored</Table.HeaderCell>
+                <Table.HeaderCell>Comments</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+
+            <Table.Body>
               {redditData.map(
                 ({
                   datePosted,
@@ -120,18 +118,18 @@ const Data = () => {
                   dateStored,
                   comments,
                 }) => (
-                  <tr key={datePosted}>
-                    <td data-label="region">{region}</td>
-                    <td data-label="subreddit">{subreddit}</td>
-                    <td data-label="postTitle">{postTitle}</td>
-                    <td data-label="upvotes">{upvotes}</td>
-                    <td data-label="dateStored">{dateStored}</td>
-                    <td data-label="comments">{comments}</td>
-                  </tr>
+                  <Table.Row key={datePosted}>
+                    <Table.Cell>{region}</Table.Cell>
+                    <Table.Cell>{subreddit}</Table.Cell>
+                    <Table.Cell>{postTitle}</Table.Cell>
+                    <Table.Cell>{upvotes}</Table.Cell>
+                    <Table.Cell>{dateStored}</Table.Cell>
+                    <Table.Cell>{comments}</Table.Cell>
+                  </Table.Row>
                 )
               )}
-            </tbody>
-          </table>
+            </Table.Body>
+          </Table>
         </>
       );
     }
