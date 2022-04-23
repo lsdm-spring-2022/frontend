@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 
-import Data from '../routes/Data';
+import Data from '../pages/Data';
 
 test('Renders title', () => {
   render(<Data />);
-  const headerElement = screen.getByText('Submit Data Request');
-  expect(headerElement).toBeInTheDocument();
+  const formTitle = screen.getByText('Data Request Form');
+  expect(formTitle).toBeInTheDocument();
 });

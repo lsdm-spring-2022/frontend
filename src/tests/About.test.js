@@ -1,9 +1,15 @@
 import { render, screen } from '@testing-library/react';
 
-import About from '../routes/About';
+import About from '../pages/About';
 
-test('Renders title', () => {
+test('Renders team', () => {
   render(<About />);
-  const headerElement = screen.getByText('About Page');
-  expect(headerElement).toBeInTheDocument();
+  const teamHeader = screen.getByText('The Team');
+  expect(teamHeader).toBeInTheDocument();
+});
+
+test('Renders project', () => {
+  render(<About />);
+  const projectHeader = screen.getByText('The Project');
+  expect(projectHeader).toBeInTheDocument();
 });

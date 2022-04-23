@@ -1,9 +1,11 @@
 import { render, screen } from '@testing-library/react';
 
-import Home from '../routes/Home';
+import Home from '../pages/Home';
 
-test('Renders title', () => {
+test('Renders heading', () => {
   render(<Home />);
-  const headerElement = screen.getByText('Home Page');
-  expect(headerElement).toBeInTheDocument();
+  const mainHeaderElement = screen.getByText('Historical Social Media');
+  const subHeaderElement = screen.getByText('Query Historical Social Media Data from Reddit & Twitter');
+  expect(mainHeaderElement).toBeInTheDocument();
+  expect(subHeaderElement).toBeInTheDocument();
 });

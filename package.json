@@ -24,7 +24,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "npx prettier --write .",
-    "postinstall": "semantic-ui-css-patch"
+    "postinstall": "semantic-ui-css-patch",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -50,6 +51,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-react": "^7.29.4",
+    "husky": "^7.0.4",
     "jest": "^27.5.1",
     "prettier": "2.6.2"
   }
