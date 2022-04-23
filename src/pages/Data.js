@@ -13,7 +13,7 @@ const Data = () => {
 
   return (
     <Container text>
-      <RequestForm updateParentRedditData={updateRedditData}/>
+      <RequestForm updateParentRedditData={updateRedditData} />
       <RedditDataTable redditData={redditData} />
     </Container>
   );

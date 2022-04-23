@@ -48,5 +48,5 @@ export const REGION_NAMES = [
   'Thailand',
   'Venezuela',
   'Peru',
-  'Saudi Arabia'
+  'Saudi Arabia',
 ];

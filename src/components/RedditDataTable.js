@@ -6,7 +6,7 @@ const RedditDataTable = ({ redditData }) => {
   const renderTable = (data) => {
     return (
       <>
-        <Header as='h2'>Reddit Data</Header>
+        <Header as="h2">Reddit Data</Header>
         <Table celled>
           <Table.Header>
             <Table.Row>
@@ -46,11 +46,7 @@ const RedditDataTable = ({ redditData }) => {
     );
   };
 
-  return (
-    <>
-      {redditData.length > 0 ? renderTable(redditData) : null}
-    </>
-  );
+  return <>{redditData.length > 0 ? renderTable(redditData) : null}</>;
 };
 
 RedditDataTable.propTypes = {

@@ -13,9 +13,9 @@ ReactDOM.render(
   <BrowserRouter>
     <Nav />
     <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='about' element={<About />} />
-      <Route path='data' element={<Data />} />
+      <Route path="/" element={<Home />} />
+      <Route path="about" element={<About />} />
+      <Route path="data" element={<Data />} />
     </Routes>
   </BrowserRouter>,
   document.querySelector('#root')

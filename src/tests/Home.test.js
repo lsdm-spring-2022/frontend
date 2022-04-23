@@ -5,7 +5,9 @@ import Home from '../pages/Home';
 test('Renders home content', () => {
   render(<Home />);
   const mainHeader = screen.getByText('Historical Social Media');
-  const subHeader = screen.getByText('Query Historical Social Media Data from Reddit & Twitter');
+  const subHeader = screen.getByText(
+    'Query Historical Social Media Data from Reddit & Twitter'
+  );
   const whyHeader = screen.getByText('Why?');
   const dataHeader = screen.getByText('Data?');
   const regionsHeader = screen.getByText('Regions');
