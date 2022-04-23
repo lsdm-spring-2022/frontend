@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Form, Table } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import { Form, Header } from 'semantic-ui-react';
 
 import { getSampleData } from '../sample-data/get-sample-data';
 
-const Data = () => {
+const RequestForm = ({ updateParentRedditData }) => {
   const [regionState, setRegionState] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [reddit, setReddit] = useState(false);
   const [twitter, setTwitter] = useState(false);
-  const [redditData, setRedditData] = useState([]);
 
   const handleRegionChange = (e, data) => {
     setRegionState(data.value);
@@ -21,20 +21,20 @@ const Data = () => {
     setEndDate('');
     setReddit(false);
     setTwitter(false);
-    setRedditData([]);
+    updateParentRedditData([]);
   };
 
   const getFakeRedditData = () => {
     try {
       const response = getSampleData();
-      setRedditData(response.reddit);
+      updateParentRedditData(response.reddit);
     } catch (err) {
       console.error(err);
-      setRedditData([]);
+      updateParentRedditData([]);
     }
   };
 
-  async function submitRequest(e) {
+  const submitRequest = async (e) =>{
     e.preventDefault();
     if (regionState === '') console.log('You must select a region.');
     else if (startDate > endDate) console.log('Invalid date range.');
@@ -44,7 +44,7 @@ const Data = () => {
       //await getSocialMediaData(regionState, startDate, endDate, reddit, twitter);
       getFakeRedditData();
     }
-  }
+  };
 
   const fakeRegions = [
     {
@@ -64,9 +64,9 @@ const Data = () => {
     }
   ];
 
-  const renderForm = () => (
+  return (
     <>
-      <h2>Submit Data Request</h2>
+      <Header as='h2'>Data Request Form</Header>
       <Form onSubmit={submitRequest}>
         <Form.Group>
           <Form.Select label="Select Country" placeholder="Select a country" options={fakeRegions} onChange={handleRegionChange} value={regionState} />
@@ -89,59 +89,10 @@ const Data = () => {
       </Form>
     </>
   );
-
-  const renderData = () => {
-    if (redditData.length > 0) {
-      return (
-        <>
-          <h2>Reddit Data</h2>
-          <Table celled>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Region</Table.HeaderCell>
-                <Table.HeaderCell>Subreddit</Table.HeaderCell>
-                <Table.HeaderCell>Post Title</Table.HeaderCell>
-                <Table.HeaderCell>Upvotes</Table.HeaderCell>
-                <Table.HeaderCell>Date Stored</Table.HeaderCell>
-                <Table.HeaderCell>Comments</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-
-            <Table.Body>
-              {redditData.map(
-                ({
-                  datePosted,
-                  region,
-                  subreddit,
-                  postTitle,
-                  upvotes,
-                  dateStored,
-                  comments,
-                }) => (
-                  <Table.Row key={datePosted}>
-                    <Table.Cell>{region}</Table.Cell>
-                    <Table.Cell>{subreddit}</Table.Cell>
-                    <Table.Cell>{postTitle}</Table.Cell>
-                    <Table.Cell>{upvotes}</Table.Cell>
-                    <Table.Cell>{dateStored}</Table.Cell>
-                    <Table.Cell>{comments}</Table.Cell>
-                  </Table.Row>
-                )
-              )}
-            </Table.Body>
-          </Table>
-        </>
-      );
-    }
-    return null;
-  };
-
-  return (
-    <div>
-      {renderForm()}
-      {renderData()}
-    </div>
-  );
 };
 
-export default Data;
+RequestForm.propTypes = {
+  updateParentRedditData: PropTypes.func.isRequired,
+};
+
+export default RequestForm;
