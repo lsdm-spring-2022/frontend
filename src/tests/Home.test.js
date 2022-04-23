@@ -7,7 +7,7 @@ test('Renders home content', () => {
   const mainHeader = screen.getByText('Historical Social Media');
   const subHeader = screen.getByText('Query Historical Social Media Data from Reddit & Twitter');
   const whyHeader = screen.getByText('Why?');
-  const dataHeader = screen.getByText('Data');
+  const dataHeader = screen.getByText('Data?');
   const regionsHeader = screen.getByText('Regions');
   const regionsTable = screen.getByText('Reddit Data Range');
 
