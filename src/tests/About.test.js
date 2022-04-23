@@ -2,14 +2,11 @@ import { render, screen } from '@testing-library/react';
 
 import About from '../pages/About';
 
-test('Renders team', () => {
+test('Renders about content', () => {
   render(<About />);
   const teamHeader = screen.getByText('The Team');
-  expect(teamHeader).toBeInTheDocument();
-});
-
-test('Renders project', () => {
-  render(<About />);
   const projectHeader = screen.getByText('The Project');
+  
+  expect(teamHeader).toBeInTheDocument();
   expect(projectHeader).toBeInTheDocument();
 });
