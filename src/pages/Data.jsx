@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Container } from 'semantic-ui-react';
-import RedditDataTable from '../components/RedditDataTable';
 
-import RequestForm from '../components/RequestForm';
+import { RedditDataTable } from '../components/RedditDataTable';
+import { RequestForm } from '../components/RequestForm';
 
-const Data = () => {
+export const Data = () => {
   const [redditData, setRedditData] = useState([]);
 
   const updateRedditData = (data) => {
@@ -18,5 +18,3 @@ const Data = () => {
     </Container>
   );
 };
-
-export default Data;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Header, Segment } from 'semantic-ui-react';
 
-const Heading = () => {
+export const Heading = () => {
   return (
     <Segment
       inverted
@@ -35,5 +35,3 @@ const Heading = () => {
     </Segment>
   );
 };
-
-export default Heading;

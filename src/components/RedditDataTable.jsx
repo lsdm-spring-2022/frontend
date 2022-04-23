@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Header, Table } from 'semantic-ui-react';
 
-const RedditDataTable = ({ redditData }) => {
+export const RedditDataTable = ({ redditData }) => {
   const renderTable = (data) => {
     return (
       <>
@@ -52,5 +52,3 @@ const RedditDataTable = ({ redditData }) => {
 RedditDataTable.propTypes = {
   redditData: PropTypes.array.isRequired,
 };
-
-export default RedditDataTable;

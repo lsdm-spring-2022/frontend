@@ -4,7 +4,7 @@ import { Form, Header } from 'semantic-ui-react';
 
 import { getSampleData } from '../sample-data/get-sample-data';
 
-const RequestForm = ({ updateParentRedditData }) => {
+export const RequestForm = ({ updateParentRedditData }) => {
   const [regionState, setRegionState] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -124,5 +124,3 @@ const RequestForm = ({ updateParentRedditData }) => {
 RequestForm.propTypes = {
   updateParentRedditData: PropTypes.func.isRequired,
 };
-
-export default RequestForm;

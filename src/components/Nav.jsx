@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Menu, Segment } from 'semantic-ui-react';
 
-const Nav = () => {
+export const Nav = () => {
   return (
     <Segment>
       <Menu fixed="top" inverted>
@@ -20,5 +20,3 @@ const Nav = () => {
     </Segment>
   );
 };
-
-export default Nav;

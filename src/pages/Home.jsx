@@ -1,10 +1,10 @@
 import React from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 
-import Heading from '../components/Heading';
-import RegionsTable from '../components/RegionsTable';
+import { Heading } from '../components/Heading';
+import { RegionsTable } from '../components/RegionsTable';
 
-const Home = () => {
+export const Home = () => {
   return (
     <>
       <Heading />
@@ -57,5 +57,3 @@ const Home = () => {
     </>
   );
 };
-
-export default Home;

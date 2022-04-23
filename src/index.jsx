@@ -4,10 +4,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import 'semantic-ui-css/semantic.min.css';
 
-import Nav from './components/Nav';
-import Home from './pages/Home';
-import About from './pages/About';
-import Data from './pages/Data';
+import { Nav } from './components/Nav';
+import { Home } from './pages/Home';
+import { About } from './pages/About';
+import { Data } from './pages/Data';
 
 ReactDOM.render(
   <BrowserRouter>

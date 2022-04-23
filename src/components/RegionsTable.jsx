@@ -3,7 +3,7 @@ import { Table } from 'semantic-ui-react';
 
 import { REGION_NAMES } from '../data/regions';
 
-const RegionsTable = () => {
+export const RegionsTable = () => {
   return (
     <Table celled inverted selectable>
       <Table.Header>
@@ -26,5 +26,3 @@ const RegionsTable = () => {
     </Table>
   );
 };
-
-export default RegionsTable;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
 
-const About = () => (
+export const About = () => (
   <Container text>
     <Header as="h2">The Team</Header>
     <p>
@@ -15,5 +15,3 @@ const About = () => (
     </p>
   </Container>
 );
-
-export default About;
