@@ -95,14 +95,14 @@ export const RequestForm = ({ updateParentRedditData }) => {
         </Form.Group>
         <Form.Group>
           <Form.Field inline>
-            <label>Data Source</label>
+            <label>Data Source(s)</label>
             <Form.Checkbox
-              label="Reddit"
+              label="Include Reddit Data"
               checked={reddit}
               onChange={() => setReddit(!reddit)}
             />
             <Form.Checkbox
-              label="Twitter"
+              label="Include Twitter Data"
               checked={twitter}
               onChange={() => setTwitter(!twitter)}
             />
