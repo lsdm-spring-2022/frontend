@@ -1,28 +1,71 @@
 import React from 'react';
-import { Table } from 'semantic-ui-react';
+import DataTable from 'react-data-table-component';
 
+import { FilterComponent } from './FilterComponent';
 import { REGION_NAMES } from '../data/regions';
 
-export const RegionsTable = () => {
-  return (
-    <Table celled inverted selectable>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell>Region</Table.HeaderCell>
-          <Table.HeaderCell>Reddit Data Range</Table.HeaderCell>
-          <Table.HeaderCell>Twitter Data Range</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
+const columns = [
+  {
+    name: 'Region',
+    selector: (row) => row.region,
+    sortable: true,
+  },
+  {
+    name: 'Reddit Data Range',
+    selector: (row) => row.redditDataRange,
+  },
+  {
+    name: 'Twitter Data Range',
+    selector: (row) => row.twitterDataRange,
+  },
+];
 
-      <Table.Body>
-        {REGION_NAMES.map((region, index) => (
-          <Table.Row key={index}>
-            <Table.Cell>{region}</Table.Cell>
-            <Table.Cell>Jan 1, 2012 - Dec 31, 2021</Table.Cell>
-            <Table.Cell>Apr 25, 2022 - May 2, 2022</Table.Cell>
-          </Table.Row>
-        ))}
-      </Table.Body>
-    </Table>
+const data = REGION_NAMES.map((region) => {
+  return {
+    region,
+    redditDataRange: 'Jan 1, 2012 - Dec 31, 2021',
+    twitterDataRange: 'Mar 29, 2022 - May 1, 2022',
+  };
+});
+
+export const RegionsTable = () => {
+  const [filterText, setFilterText] = React.useState('');
+  const [resetPaginationToggle, setResetPaginationToggle] =
+    React.useState(false);
+  const filteredItems = data.filter(
+    (item) =>
+      item.region &&
+      item.region.toLowerCase().includes(filterText.toLowerCase())
+  );
+
+  const subHeaderComponentMemo = React.useMemo(() => {
+    const handleClear = () => {
+      if (filterText) {
+        setResetPaginationToggle(!resetPaginationToggle);
+        setFilterText('');
+      }
+    };
+
+    return (
+      <FilterComponent
+        onFilter={(e) => setFilterText(e.target.value)}
+        onClear={handleClear}
+        filterText={filterText}
+      />
+    );
+  }, [filterText, resetPaginationToggle]);
+
+  return (
+    <DataTable
+      title="Regions Data"
+      columns={columns}
+      data={filteredItems}
+      theme="dark"
+      pagination
+      paginationResetDefaultPage={resetPaginationToggle}
+      subHeader
+      subHeaderComponent={subHeaderComponentMemo}
+      persistTableHead
+    />
   );
 };

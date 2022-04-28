@@ -1,13 +1,12 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost/';
-
 export const getSocialMediaData = async (
   region,
   startDate,
   endDate,
   reddit,
-  twitter
+  twitter,
+  limit
 ) => {
   const params = {
     region,
@@ -15,13 +14,18 @@ export const getSocialMediaData = async (
     endDate,
     reddit,
     twitter,
+    limit,
   };
   try {
-    const response = await axios.get(`${BASE_URL}api/data`, { params });
+    const response = await axios({
+      method: 'GET',
+      url: 'api/data',
+      params,
+    });
     console.log(response.data);
     return response.data;
   } catch (err) {
     console.error(err);
-    return undefined;
+    throw new Error('Error fetching data');
   }
 };

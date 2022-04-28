@@ -11,43 +11,36 @@ const columns = [
     sortable: true,
   },
   {
-    name: 'Subreddit',
-    selector: (row) => row.subreddit,
+    name: 'Trend',
+    selector: (row) => row.trend,
+    sortable: true,
+    grow: 2,
+  },
+  {
+    name: 'Tweet Volume',
+    selector: (row) => row.tweetVolume,
     sortable: true,
   },
   {
-    name: 'Post Title',
-    selector: (row) => row.postTitle,
-    sortable: true,
-    grow: 4,
+    name: 'Date Trend Started',
+    selector: (row) => row.dateTrendStarted,
   },
   {
-    name: 'Upvotes',
-    selector: (row) => row.upvotes,
-    sortable: true,
-  },
-  {
-    name: 'Date Stored',
-    selector: (row) => row.dateStored,
-  },
-  {
-    name: 'Comments',
-    selector: (row) => row.comments,
+    name: 'Date Retrieved',
+    selector: (row) => row.dateRetrieved,
   },
 ];
 
-export const RedditDataTable = ({ redditData }) => {
+export const TwitterDataTable = ({ twitterData }) => {
   const [filterText, setFilterText] = React.useState('');
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
-  const filteredItems = redditData.filter(
+  const filteredItems = twitterData.filter(
     (item) =>
       (item.region &&
         item.region.toLowerCase().includes(filterText.toLowerCase())) ||
-      (item.subreddit &&
-        item.subreddit.toLowerCase().includes(filterText.toLowerCase())) ||
-      (item.postTitle &&
-        item.postTitle.toLowerCase().includes(filterText.toLowerCase()))
+      (item.trend &&
+        item.trend.toLowerCase().includes(filterText.toLowerCase()))
   );
 
   const subHeaderComponentMemo = React.useMemo(() => {
@@ -70,7 +63,7 @@ export const RedditDataTable = ({ redditData }) => {
   const renderTable = () => {
     return (
       <DataTable
-        title="Reddit Data"
+        title="Twitter Data"
         columns={columns}
         data={filteredItems}
         theme="dark"
@@ -83,9 +76,9 @@ export const RedditDataTable = ({ redditData }) => {
     );
   };
 
-  return <>{redditData.length > 0 ? renderTable(redditData) : null}</>;
+  return <>{twitterData.length > 0 ? renderTable(twitterData) : null}</>;
 };
 
-RedditDataTable.propTypes = {
-  redditData: PropTypes.array.isRequired,
+TwitterDataTable.propTypes = {
+  twitterData: PropTypes.array.isRequired,
 };
