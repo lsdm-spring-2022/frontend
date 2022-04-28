@@ -8,6 +8,7 @@ const columns = [
   {
     name: 'Region',
     selector: (row) => row.region,
+    sortable: true,
   },
   {
     name: 'Reddit Data Range',

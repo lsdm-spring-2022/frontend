@@ -2,17 +2,37 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Header } from 'semantic-ui-react';
 
-import { getSampleData } from '../sample-data/get-sample-data';
+import { getSocialMediaData } from '../apis/data';
 
-export const RequestForm = ({ updateParentRedditData }) => {
+const limitOptions = [
+  { key: '10', value: '10', text: '10' },
+  { key: '25', value: '25', text: '25' },
+  { key: '50', value: '50', text: '50' },
+  { key: '100', value: '100', text: '100' },
+  { key: '250', value: '250', text: '250' },
+  { key: '500', value: '500', text: '500' },
+  { key: '1000', value: '1000', text: '1000' },
+];
+
+export const RequestForm = ({
+  updateRedditData,
+  updateTwitterData,
+  updateLoadStatus,
+  updateErrorStatus,
+}) => {
   const [regionState, setRegionState] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [reddit, setReddit] = useState(false);
   const [twitter, setTwitter] = useState(false);
+  const [limit, setLimit] = useState('50');
 
   const handleRegionChange = (e, data) => {
     setRegionState(data.value);
+  };
+
+  const handleLimitChange = (e, data) => {
+    setLimit(data.value);
   };
 
   const handleResetForm = () => {
@@ -21,17 +41,11 @@ export const RequestForm = ({ updateParentRedditData }) => {
     setEndDate('');
     setReddit(false);
     setTwitter(false);
-    updateParentRedditData([]);
-  };
-
-  const getFakeRedditData = () => {
-    try {
-      const response = getSampleData();
-      updateParentRedditData(response.reddit);
-    } catch (err) {
-      console.error(err);
-      updateParentRedditData([]);
-    }
+    updateRedditData([]);
+    updateTwitterData([]);
+    updateLoadStatus(false);
+    updateErrorStatus(false);
+    setLimit('50');
   };
 
   const submitRequest = async (e) => {
@@ -41,8 +55,24 @@ export const RequestForm = ({ updateParentRedditData }) => {
     else if (!reddit && !twitter)
       console.log('You need to pick at least one site!');
     else {
-      //await getSocialMediaData(regionState, startDate, endDate, reddit, twitter);
-      getFakeRedditData();
+      updateLoadStatus(true);
+      try {
+        const apiData = await getSocialMediaData(
+          regionState,
+          startDate,
+          endDate,
+          reddit,
+          twitter,
+          limit
+        );
+        updateRedditData(apiData.reddit);
+        updateTwitterData(apiData.twitter);
+      } catch (err) {
+        console.error(err);
+        updateErrorStatus(true);
+      } finally {
+        updateLoadStatus(false);
+      }
     }
   };
 
@@ -109,6 +139,17 @@ export const RequestForm = ({ updateParentRedditData }) => {
           </Form.Field>
         </Form.Group>
         <Form.Group>
+          <Form.Field inline>
+            <Form.Select
+              label="Number of Results"
+              placeholder="Results Limit"
+              options={limitOptions}
+              onChange={handleLimitChange}
+              value={limit}
+            />
+          </Form.Field>
+        </Form.Group>
+        <Form.Group>
           <Form.Button content="Submit" />
           <Form.Button
             content="New Search"
@@ -122,5 +163,8 @@ export const RequestForm = ({ updateParentRedditData }) => {
 };
 
 RequestForm.propTypes = {
-  updateParentRedditData: PropTypes.func.isRequired,
+  updateRedditData: PropTypes.func.isRequired,
+  updateTwitterData: PropTypes.func.isRequired,
+  updateLoadStatus: PropTypes.func.isRequired,
+  updateErrorStatus: PropTypes.func.isRequired,
 };
