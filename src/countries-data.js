@@ -34,7 +34,7 @@ const countries = [
   { key: 'ch', value: 'switzerland', text: 'Switzerland' },
   { key: 'hu', value: 'hungary', text: 'Hungary' },
   { key: 'no', value: 'norway', text: 'Norway' },
-  { key: 'vn', value: 'vietnam', text: 'Viet Nam' },
+  { key: 'vn', value: 'vietnam', text: 'Vietnam' },
   { key: 'co', value: 'colombia', text: 'Colombia' },
   { key: 'il', value: 'israel', text: 'Isreal' },
   { key: 'za', value: 'southafrica', text: 'South Africa' },
