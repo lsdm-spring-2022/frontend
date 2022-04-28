@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Header } from 'semantic-ui-react';
 
 import { getSocialMediaData } from '../apis/data';
+import countries from '../countries-data';
 
 const limitOptions = [
   { key: '10', value: '10', text: '10' },
@@ -76,24 +77,6 @@ export const RequestForm = ({
     }
   };
 
-  const fakeRegions = [
-    {
-      key: 'us',
-      value: 'unitedstates',
-      text: 'United States',
-    },
-    {
-      key: 'uk',
-      value: 'unitedkingdom',
-      text: 'United Kingdom',
-    },
-    {
-      key: 'fr',
-      value: 'france',
-      text: 'France',
-    },
-  ];
-
   return (
     <>
       <Header as="h2">Data Request Form</Header>
@@ -102,7 +85,7 @@ export const RequestForm = ({
           <Form.Select
             label="Select Country"
             placeholder="Select a country"
-            options={fakeRegions}
+            options={countries}
             onChange={handleRegionChange}
             value={regionState}
           />
