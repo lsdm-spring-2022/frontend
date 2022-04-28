@@ -7,8 +7,12 @@ COPY package.json ./
 
 COPY package-lock.json ./
 
+COPY vite.config.js ./
+
+COPY src/ ./src/
+
+COPY index.html ./
+
 RUN npm install
 
-COPY . ./
-
-CMD ["npm", "start"]
+CMD ["npm", "run", "preview"]
