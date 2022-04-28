@@ -3,6 +3,8 @@ import { Form, Table } from 'semantic-ui-react';
 
 import { getSampleData } from '../sample-data/get-sample-data';
 
+import countries from '../countries-data';
+
 const Data = () => {
   const [regionState, setRegionState] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -46,6 +48,7 @@ const Data = () => {
     }
   }
 
+  /*
   const fakeRegions = [
     {
       key: 'us',
@@ -63,13 +66,14 @@ const Data = () => {
       text: 'France'
     }
   ];
+*/
 
   const renderForm = () => (
     <>
       <h2>Submit Data Request</h2>
       <Form onSubmit={submitRequest}>
         <Form.Group>
-          <Form.Select label="Select Country" placeholder="Select a country" options={fakeRegions} onChange={handleRegionChange} value={regionState} />
+          <Form.Select label="Select Country" placeholder="Select a country" options={countries} onChange={handleRegionChange} value={regionState} />
         </Form.Group>
         <Form.Group>
           <Form.Input label="Starting Date" placeholder="Starting Date" value={startDate} type="date" onChange={(e) => setStartDate(e.target.value)} />
