@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Header } from 'semantic-ui-react';
 
 import { getSocialMediaData } from '../apis/data';
-import countries from '../countries-data';
+import { countries } from '../data/countries-data';
 
 const limitOptions = [
   { key: '10', value: '10', text: '10' },
@@ -20,6 +20,7 @@ export const RequestForm = ({
   updateTwitterData,
   updateLoadStatus,
   updateErrorStatus,
+  updateInputErrors,
 }) => {
   const [regionState, setRegionState] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -47,15 +48,29 @@ export const RequestForm = ({
     updateLoadStatus(false);
     updateErrorStatus(false);
     setLimit('50');
+    updateInputErrors([]);
   };
 
   const submitRequest = async (e) => {
     e.preventDefault();
-    if (regionState === '') console.log('You must select a region.');
-    else if (startDate > endDate) console.log('Invalid date range.');
-    else if (!reddit && !twitter)
-      console.log('You need to pick at least one site!');
-    else {
+    const inputErrors = [];
+    if (regionState === '') {
+      inputErrors.push('Please select a region');
+    }
+    if (startDate === '') {
+      inputErrors.push('Please select a start date');
+    }
+    if (endDate === '') {
+      inputErrors.push('Please select an end date');
+    }
+    if (startDate > endDate) {
+      inputErrors.push('Start date must be before end date');
+    }
+    if (!reddit && !twitter) {
+      inputErrors.push('Please select at least one data source');
+    }
+    if (inputErrors.length === 0) {
+      updateInputErrors([]);
       updateLoadStatus(true);
       try {
         const apiData = await getSocialMediaData(
@@ -74,6 +89,8 @@ export const RequestForm = ({
       } finally {
         updateLoadStatus(false);
       }
+    } else {
+      updateInputErrors(inputErrors);
     }
   };
 
@@ -150,4 +167,5 @@ RequestForm.propTypes = {
   updateTwitterData: PropTypes.func.isRequired,
   updateLoadStatus: PropTypes.func.isRequired,
   updateErrorStatus: PropTypes.func.isRequired,
+  updateInputErrors: PropTypes.func.isRequired,
 };
