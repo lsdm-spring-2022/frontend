@@ -1,4 +1,4 @@
-const countries = [
+export const countries = [
   { key: 'us', value: 'unitedstates', text: 'United States' },
   { key: 'ca', value: 'canada', text: 'Canada' },
   { key: 'au', value: 'australia', text: 'Australia' },
@@ -50,5 +50,3 @@ const countries = [
   { key: 'pe', value: 'peru', text: 'Peru' },
   { key: 'sa', value: 'saudiarabia', text: 'Saudi Arabia' },
 ];
-
-export default countries;

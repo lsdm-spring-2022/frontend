@@ -4,12 +4,14 @@ import { Container, Header, Loader } from 'semantic-ui-react';
 import { RequestForm } from '../components/RequestForm';
 import { RedditDataTable } from '../components/RedditDataTable';
 import { TwitterDataTable } from '../components/TwitterDataTable';
+import { ErrorMessage } from '../components/ErrorMessage';
 
 export const Data = () => {
   const [redditData, setRedditData] = useState([]);
   const [twitterData, setTwitterData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [inputErrors, setInputErrors] = useState([]);
 
   const updateRedditData = (data) => {
     setRedditData(data);
@@ -25,6 +27,10 @@ export const Data = () => {
 
   const updateErrorStatus = (status) => {
     setIsError(status);
+  };
+
+  const updateInputErrors = (error) => {
+    setInputErrors(error);
   };
 
   const renderTables = () => {
@@ -45,6 +51,7 @@ export const Data = () => {
         updateTwitterData={updateTwitterData}
         updateLoadStatus={updateLoadStatus}
         updateErrorStatus={updateErrorStatus}
+        updateInputErrors={updateInputErrors}
       />
       <Header as="h5">
         Note: The data retrieved from Reddit and Twitter may contain
@@ -58,6 +65,7 @@ export const Data = () => {
       ) : (
         renderTables()
       )}
+      {inputErrors.length > 0 && <ErrorMessage errors={inputErrors} />}
       {isError && <Header as="h1">Error Fetching Data!</Header>}
     </Container>
   );
