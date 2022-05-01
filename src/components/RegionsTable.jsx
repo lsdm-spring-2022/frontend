@@ -24,7 +24,7 @@ const data = REGION_NAMES.map((region) => {
   return {
     region,
     redditDataRange: 'Jan 1, 2012 - Dec 31, 2021',
-    twitterDataRange: 'Mar 29, 2022 - May 1, 2022',
+    twitterDataRange: 'Mar 26, 2022 - May 1, 2022',
   };
 });
 

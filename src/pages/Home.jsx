@@ -32,7 +32,7 @@ export const Home = () => {
                 Our team collected historical data from Reddit and Twitter.
                 Reddit data was collected from January 1, 2012 to December 31,
                 2021. Reddit data was collected for each day starting at 00:00
-                and ending at 23:59. Twitter data was collected from March 29,
+                and ending at 23:59. Twitter data was collected from March 26,
                 2022 to May 1, 2022. Twitter data was collected each day.
               </p>
             </Grid.Column>
