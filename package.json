@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@semantic-ui-react/css-patch": "^1.0.0",
-    "axios": "^0.26.1",
+    "axios": "^0.27.2",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-data-table-component": "^7.5.0",
